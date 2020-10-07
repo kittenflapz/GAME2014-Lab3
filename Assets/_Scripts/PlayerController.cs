@@ -61,16 +61,19 @@ public class PlayerController : MonoBehaviour
 
         // move the ship
 
-        Vector2 newVelocity = m_rigidBody.velocity + new Vector2(direction * horizontalSpeed, 0.0f);
-        m_rigidBody.velocity = Vector2.ClampMagnitude(newVelocity, maxSpeed);
-        m_rigidBody.velocity *= 0.99f;
-
+       
         if (touchesEnd != Vector3.zero)
         {
             transform.position = new Vector2(Mathf.Lerp(transform.position.x, touchesEnd.x, 0.01f), transform.position.y);
         }
+        else
+        {
+            Vector2 newVelocity = m_rigidBody.velocity + new Vector2(direction * horizontalSpeed, 0.0f);
+            m_rigidBody.velocity = Vector2.ClampMagnitude(newVelocity, maxSpeed);
+            m_rigidBody.velocity *= 0.99f;
 
-       
+        }
+
     }
 
     private void _CheckBounds()
