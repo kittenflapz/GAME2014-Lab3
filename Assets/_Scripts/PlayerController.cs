@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     public float horizontalSpeed;
     public float maxSpeed;
 
+    public BulletManager bulletManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,7 @@ public class PlayerController : MonoBehaviour
     {
         _Move();
         _CheckBounds();
+        _FireBullet();
     }
 
     private void _Move()
@@ -71,7 +74,6 @@ public class PlayerController : MonoBehaviour
             Vector2 newVelocity = m_rigidBody.velocity + new Vector2(direction * horizontalSpeed, 0.0f);
             m_rigidBody.velocity = Vector2.ClampMagnitude(newVelocity, maxSpeed);
             m_rigidBody.velocity *= 0.99f;
-
         }
 
     }
@@ -90,5 +92,13 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(-horizontalBoundary, transform.position.y);
         }
 
+    }
+
+    private void _FireBullet()
+    {
+        if (Time.frameCount % 40 == 0)
+        { 
+            bulletManager.GetBullet(transform.position); 
+        }
     }
 }
